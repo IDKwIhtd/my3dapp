@@ -56,6 +56,7 @@ function Carousel({ radius = 1.4, count = 8 }) {
   return Array.from({ length: count }, (_, i) => (
     <Card
       key={i}
+      index={i + 1}
       url={`${process.env.PUBLIC_URL}/img${Math.floor(i % 10) + 1}.png`} // URL을 환경 변수로 설정
       position={[Math.sin((i / count) * Math.PI * 2) * radius, 0, Math.cos((i / count) * Math.PI * 2) * radius]}
       rotation={[0, Math.PI + (i / count) * Math.PI * 2, 0]}
@@ -70,13 +71,29 @@ function Card({ url, ...props }) {
   const [hovered, hover] = useState(false)
   const pointerOver = (e) => (e.stopPropagation(), hover(true))
   const pointerOut = () => hover(false)
+
+  const index222 = props.index
+
+  const handleClick = () => {
+    window.location.href = `${process.env.PUBLIC_URL}/pages/img${index222}.php`;
+  };
+
+  
   useFrame((state, delta) => {
     easing.damp3(ref.current.scale, hovered ? 1.15 : 1, 0.1, delta)
     easing.damp(ref.current.material, 'radius', hovered ? 0.25 : 0.1, 0.2, delta)
     easing.damp(ref.current.material, 'zoom', hovered ? 1 : 1.5, 0.2, delta)
   })
   return (
-    <Image ref={ref} url={url} transparent side={THREE.DoubleSide} onPointerOver={pointerOver} onPointerOut={pointerOut} {...props}>
+    <Image 
+    ref={ref} 
+    url={url} 
+    transparent 
+    side={THREE.DoubleSide} 
+    onPointerOver={pointerOver} 
+    onPointerOut={pointerOut} 
+    onClick={handleClick}
+    {...props}>
       <bentPlaneGeometry args={[0.1, 1, 1, 20, 20]} />
     </Image>
   )
