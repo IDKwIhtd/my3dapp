@@ -72,10 +72,10 @@ function Card({ url, ...props }) {
   const pointerOver = (e) => (e.stopPropagation(), hover(true))
   const pointerOut = () => hover(false)
 
-  const index222 = props.index
+  const index2 = props.index
 
   const handleClick = () => {
-    window.location.href = `${process.env.PUBLIC_URL}/pages/img${index222}.php`;
+    window.location.href = `${process.env.PUBLIC_URL}/pages/img${index2}.php`;
   };
 
   
