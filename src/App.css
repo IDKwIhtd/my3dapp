@@ -38,11 +38,24 @@
 }
 
 .flex-div {
-  position: relative;
-  width: 100%;
-  height: 600px !important;
-  overflow: hidden;
-  pointer-events: auto;
+  /* position: relative; */
+  /* width: 100%; */
+  height: 700px !important;
+  /* overflow: hidden; */
+  /* pointer-events: auto; */
+  
+  
 
 }
+
+.card {
+  position:absolute;
+  align-items: center;
+  width: 100%; /* 카드의 폭을 콘텐츠에 맞춰 확장 */
+  height: auto; /* 카드의 높이도 자동으로 맞춤 */
+  overflow: visible; /* 카드 내부 콘텐츠가 잘리지 않도록 */
+  object-fit: contain;
+  padding:1px;
+}
+
 

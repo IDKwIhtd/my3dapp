@@ -1,7 +1,7 @@
 // https://cydstumpel.nl/
 
 import * as THREE from 'three'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 //Canvas  : Three.js의 3D씬 생성
 //useFrame : 매 프레임마다 호출되어 애니메이션 업데이트
@@ -18,21 +18,41 @@ export const App = () => {
   const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
 
   return(
-  <Canvas className='flex-div' camera={{ position: [0, 0, isMobile ? 50 : 100], fov: isMobile ? 30 : 15 }}>
-    <fog attach="fog" args={['#a79', 8.5, 12]} />
+  <Canvas 
+  className='flex-div' 
+  camera={{ position: [0, 0, isMobile ? 50 : 100], fov: isMobile ? 30 : 15 }}
+  style = {{background: '#ffffff'}}
+  >
+    {/* <fog attach="fog" args={['#950813', 8.5, 12]} /> */}
     <ScrollControls pages={4} infinite>
       <Rig rotation={[0, 0, 0.15]}>
         <Carousel />
       </Rig>
-      <Banner position={[0, -0.15, 0]} />
+      <Banner position={[0, -0.30, 0]} />
     </ScrollControls>
-    <Environment preset="dawn" background blur={0.5} />
+    
+    {/* <Environment preset="city" background blur={0.7} /> */}
   </Canvas>
+//   <Canvas
+//   className="flex-div"
+//   camera={{ position: [0, 0, isMobile ? 50 : 100], fov: isMobile ? 30 : 30 }}
+//   style={{ background: '#ffffff' }}
+//   shadows
+// >
+//   <fog attach="fog" args={['#a79', 8.5, 12]} />
+//   <ScrollControls pages={4} infinite>
+//     <Rig rotation={[0, 0, 0.15]}>
+//       <Carousel />
+//     </Rig>
+//     <Banner position={[0, -0.15, 0]} />
+//   </ScrollControls>
+// </Canvas>
+
 )
 };
 
 //fov(Field Of View) : 시야각 => 넓을수록 더 많은 장면이 화면에 보이고, 좁을수록 확대된 느낌을 줌
-//fog : 안개 추가, 씬에 깊이감을 줌, args : 시작과 끝 거리 설정
+//fog : 안개 추가, 씬에 깊이감을 줌, args : 시작과 끝 거리 설정 배너 뒷부분 생각하면 됨 (좀 간지)
 //ScrollControls : 스크롤컨트롤추가, 페이지 스크롤을 통해 애니메이션 제어, infinite로 무한루프
 //Rig : 씬의 회전 조절 rotation으로 방향을 조절(고정된 회전 값 설정) [x, y, z]
 //Environment : preset(사전설정) dawn으로 따뜻하고 자연스러운 조명 효과, blur로 흐림 효과
@@ -52,7 +72,7 @@ function Rig(props) {
 //=====씬 회전 및 카메라 이동 관리=======//
 
 //========캐러셀 컴포넌트=======//
-function Carousel({ radius = 1.4, count = 8 }) {
+function Carousel({ radius = 1.4, count = 2 }) {
   return Array.from({ length: count }, (_, i) => (
     <Card
       key={i}
@@ -60,30 +80,35 @@ function Carousel({ radius = 1.4, count = 8 }) {
       url={`${process.env.PUBLIC_URL}/img${Math.floor(i % 10) + 1}.png`} // URL을 환경 변수로 설정
       position={[Math.sin((i / count) * Math.PI * 2) * radius, 0, Math.cos((i / count) * Math.PI * 2) * radius]}
       rotation={[0, Math.PI + (i / count) * Math.PI * 2, 0]}
+      scale = {[1,1,1]}
     />
   ))
 }
 //======== 카드 컴포넌트 생성, 지정된 개수의 카드를 원형으로 배치==========//
 
+
+
 //========개별 카드 컴포넌트==========//
 function Card({ url, ...props }) {
-  const ref = useRef()
-  const [hovered, hover] = useState(false)
-  const pointerOver = (e) => (e.stopPropagation(), hover(true))
-  const pointerOut = () => hover(false)
+  const ref = useRef();
+  const [hovered, hover] = useState(false);
+  const pointerOver = (e) => {
+    e.stopPropagation();
+    hover(true);
+  };
+  const pointerOut = () => hover(false);
 
-  const index2 = props.index
-
+  const index2 = props.index;
   const handleClick = () => {
     window.location.href = `${process.env.PUBLIC_URL}/pages/img${index2}.php`;
   };
 
-  
   useFrame((state, delta) => {
     easing.damp3(ref.current.scale, hovered ? 1.15 : 1, 0.1, delta)
     easing.damp(ref.current.material, 'radius', hovered ? 0.25 : 0.1, 0.2, delta)
     easing.damp(ref.current.material, 'zoom', hovered ? 1 : 1.5, 0.2, delta)
   })
+
   return (
     <Image 
     ref={ref} 
@@ -95,9 +120,7 @@ function Card({ url, ...props }) {
     onClick={handleClick}
     {...props}>
       <bentPlaneGeometry args={[0.1, 1, 1, 20, 20]} />
-    </Image>
-  )
-}
+    </Image>)}
 //========호버 애니메이션, 사용자 인터랙션 처리===========//
 
 //==========배너 컴포넌트===============//
