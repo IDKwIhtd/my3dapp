@@ -23,7 +23,7 @@ export const App = () => {
   camera={{ position: [0, 0, isMobile ? 50 : 100], fov: isMobile ? 30 : 15 }}
   style = {{background: '#ffffff'}}
   >
-    {/* <fog attach="fog" args={['#950813', 8.5, 12]} /> */}
+    <fog attach="fog" args={['#fffff', 8.5, 12]} />
     <ScrollControls pages={4} infinite>
       <Rig rotation={[0, 0, 0.15]}>
         <Carousel />
