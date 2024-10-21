@@ -109,7 +109,7 @@ function Rig(props) {
 //=====씬 회전 및 카메라 이동 관리=======//
 
 //========캐러셀 컴포넌트=======//
-function Carousel({ radius = 1.4, count = 3 }) {
+function Carousel({ radius = 1.4, count = 6 }) {
   return Array.from({ length: count }, (_, i) => (
     <Card
       key={i}
