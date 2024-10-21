@@ -109,14 +109,14 @@ function Rig(props) {
 //=====씬 회전 및 카메라 이동 관리=======//
 
 //========캐러셀 컴포넌트=======//
-function Carousel({ radius = 1.4, count = 7 }) {
+function Carousel({ radius = 1.4, count = 9 }) {
   return Array.from({ length: count }, (_, i) => (
     <Card
       key={i}
       index={i + 1}
       url={`${process.env.PUBLIC_URL}/img${Math.floor(i % 10) + 1}.png`} // URL을 환경 변수로 설정
       position={[Math.sin((i / count) * Math.PI * 2) * radius, 0, Math.cos((i / count) * Math.PI * 2) * radius]}
-      rotation={[0, Math.PI + (i / count) * Math.PI * 2, 0]}
+      rotation={[0, (i / count) * Math.PI * 2, 0]}
       scale = {[0.5,0.5,0.5]}
     />
   ))
@@ -161,8 +161,12 @@ function Card({ url, ...props }) {
     onPointerOver={pointerOver} 
     onPointerOut={pointerOut} 
     onClick={handleClick}
-    {...props}>
-      <bentPlaneGeometry args={[0.1, 0.75, 0.75, 20, 20]} />
+    {...props}
+    >
+      
+      <bentPlaneGeometry 
+      args={[0.1, 0.75, 0.75, 20, 20]}
+       />
     </Image>)}
 //========호버 애니메이션, 사용자 인터랙션 처리===========//
 
