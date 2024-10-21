@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<header onclick="window.location.href='https://zeroto.dothome.co.kr';" style="cursor: pointer;">
+<header onclick="window.location.href='zeroto.dothome.co.kr';" style="cursor: pointer;">
         <h1>Back To the ZERO</h1>
     </header>
 
