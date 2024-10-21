@@ -109,7 +109,7 @@ function Rig(props) {
 //=====씬 회전 및 카메라 이동 관리=======//
 
 //========캐러셀 컴포넌트=======//
-function Carousel({ radius = 1.4, count = 6 }) {
+function Carousel({ radius = 1.4, count = 7 }) {
   return Array.from({ length: count }, (_, i) => (
     <Card
       key={i}
@@ -137,7 +137,11 @@ function Card({ url, ...props }) {
 
   const index2 = props.index;
   const handleClick = () => {
+      //index2 : 1 => notion 리다이렉트
     if (index2===1){window.location.href = 'https://laser-dresser-d75.notion.site/125516ef2cc1800aa51ee989cc93293e?pvs=4';}
+    else if (index2 === 4) {
+      // index2 : 4 => gitHub 리다이렉트
+      window.location.href = 'https://github.com/IDKwIhtd';}
     else{
     window.location.href = `${process.env.PUBLIC_URL}/pages/img${index2}.php`;}
   };
