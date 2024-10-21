@@ -137,7 +137,9 @@ function Card({ url, ...props }) {
 
   const index2 = props.index;
   const handleClick = () => {
-    window.location.href = `${process.env.PUBLIC_URL}/pages/img${index2}.php`;
+    if (index2===1){window.location.href = 'https://laser-dresser-d75.notion.site/125516ef2cc1800aa51ee989cc93293e?pvs=4';}
+    else{
+    window.location.href = `${process.env.PUBLIC_URL}/pages/img${index2}.php`;}
   };
 
   useFrame((state, delta) => {
