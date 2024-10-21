@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 //Canvas  : Three.js의 3D씬 생성
 //useFrame : 매 프레임마다 호출되어 애니메이션 업데이트
-import { Image, Environment, ScrollControls, useScroll, useTexture } from '@react-three/drei'
+import { Image, Environment, ScrollControls, useScroll, useTexture,Text } from '@react-three/drei'
 //@react-three/drei : Three.js와의 통합을 돕는 유틸리티 모음
 import { easing } from 'maath'
 //easing : 애니메이션에 부드러운 전환 효과 추가
@@ -13,26 +13,59 @@ import './util'
 //코드에는 포함되지 않은 별도의 유틸리티 파일
 import './App.css'
 
+function BackgroundTextGrid() {
+  const rows = 8; // 원하는 행 수
+  const cols = 4; // 원하는 열 수
+  const textSize = 0.1; // 개별 텍스트 크기
+  const textSpacingX = 0.4; // 텍스트 간격
+  const textSpacingY = 0.1;
+
+  const texts = [];
+  for (let i = -rows; i <= rows; i++) {
+    for (let j = -cols; j <= cols; j++) {
+      texts.push(
+        <Text
+          key={`${i}-${j}`}
+          position={[j * textSpacingX, i * textSpacingY, -1.6]} // 배경에 텍스트 배치
+          fontSize={textSize} // 글자 크기 설정
+          color="black" // 글자 색상 설정
+          anchorX="center"
+          anchorY="middle"
+        >
+          ZEROTO
+        </Text>
+      );
+    }
+  }
+
+  return <>{texts}</>;
+}
 
 export const App = () => {
   const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
 
   return(
+    
+    
   <Canvas 
   className='flex-div' 
   camera={{ position: [0, 0, isMobile ? 50 : 100], fov: isMobile ? 30 : 15 }}
-  style = {{background: '#ffffff'}}
+  style = {{background: 'transparent'}}
   >
-    <fog attach="fog" args={['#fffff', 8.5, 12]} />
+    <fog attach="fog" args={['#fffff', 9.5, 13]} />
     <ScrollControls pages={4} infinite>
       <Rig rotation={[0, 0, 0.15]}>
         <Carousel />
       </Rig>
       <Banner position={[0, -0.30, 0]} />
+      <BackgroundTextGrid />
+      
+      
     </ScrollControls>
     
     {/* <Environment preset="city" background blur={0.7} /> */}
   </Canvas>
+  
 //   <Canvas
 //   className="flex-div"
 //   camera={{ position: [0, 0, isMobile ? 50 : 100], fov: isMobile ? 30 : 30 }}
@@ -48,6 +81,7 @@ export const App = () => {
 //   </ScrollControls>
 // </Canvas>
 
+
 )
 };
 
@@ -56,6 +90,9 @@ export const App = () => {
 //ScrollControls : 스크롤컨트롤추가, 페이지 스크롤을 통해 애니메이션 제어, infinite로 무한루프
 //Rig : 씬의 회전 조절 rotation으로 방향을 조절(고정된 회전 값 설정) [x, y, z]
 //Environment : preset(사전설정) dawn으로 따뜻하고 자연스러운 조명 효과, blur로 흐림 효과
+
+
+
 
 //=====Rig 컴포넌트=====//
 function Rig(props) {
@@ -72,7 +109,7 @@ function Rig(props) {
 //=====씬 회전 및 카메라 이동 관리=======//
 
 //========캐러셀 컴포넌트=======//
-function Carousel({ radius = 1.4, count = 2 }) {
+function Carousel({ radius = 1.4, count = 3 }) {
   return Array.from({ length: count }, (_, i) => (
     <Card
       key={i}
