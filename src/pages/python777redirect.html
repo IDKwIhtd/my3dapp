@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.10.5/brython.min.js"></script>
+    <style>
+        #message {
+            display: none; /* 기본적으로 숨김 처리 */
+            width: 300px;
+            height: 100px;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body onload="brython()">
+    <h1>일곱번의 기회가 주어집니다! </h1>
+
+    <input type="text" id="userInput" placeholder="👻 1부터 100사이의 숫자를 입력하세요 👻">
+    <button id="submitBtn">GO !</button>
+    <p id="message">결과 메시지가 여기에 나타납니다.</p>
+    <div id="record"></div>
+
+    <script type="text/python">
+        from browser import document,window
+
+        answer_q = int(window.Math.random() * 100) + 1
+        shoot = 0
+
+        def guess_number(event):
+            global shoot
+            user_input = document["userInput"].value
+            message = document["message"]
+
+            record = document["record"]
+
+            if not user_input.isdigit():
+                message.text = "숫자를 입력하세요!"
+                message.style.display = "block"  # 결과를 보여주기 위해 display 속성 변경
+                return
+
+            chance = int(user_input)
+            shoot += 1
+
+            
+
+            if chance == answer_q:
+                message.text = f"ㅊㅋㅊㅋ 정답! 총 {shoot}번 시도 끝에 성공!"
+            elif shoot >= 7:
+                message.text = f"실패지롱! 정답은 {answer_q}~~!"
+            elif chance > answer_q:
+                message.text = f"정답보다 큽니다. 총 {7 - shoot}번 남음."
+            else:
+                message.text = f"정답보다 작습니다. 총 {7 - shoot}번 남음."
+
+
+            document["userInput"].value = ""
+            message.style.display = "block"  # 결과를 보여주기 위해 display 속성 변경
+
+            # 새로운 p 요소 생성 후 기록 남기기
+            new_record = document.createElement('p')
+            new_record.text = f"시도 {shoot}: 입력한 값 = {chance}, 결과 = {message.text}"
+            record <= new_record  # 새 p 태그를 기록 영역에 추가
+
+
+        # 버튼 클릭 이벤트에 guess_number 함수 바인딩
+        document["submitBtn"].bind("click", guess_number)
+    </script>
+</body>
+</html>
