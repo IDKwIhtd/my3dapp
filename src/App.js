@@ -117,7 +117,7 @@ function Carousel({ radius = 1.4, count = 6 }) {
       url={`${process.env.PUBLIC_URL}/img${Math.floor(i % 10) + 1}.png`} // URL을 환경 변수로 설정
       position={[Math.sin((i / count) * Math.PI * 2) * radius, 0, Math.cos((i / count) * Math.PI * 2) * radius]}
       rotation={[0, Math.PI + (i / count) * Math.PI * 2, 0]}
-      scale = {[1,1,1]}
+      scale = {[0.5,0.5,0.5]}
     />
   ))
 }
@@ -141,9 +141,9 @@ function Card({ url, ...props }) {
   };
 
   useFrame((state, delta) => {
-    easing.damp3(ref.current.scale, hovered ? 1 : 1, 0.1, delta)
-    easing.damp(ref.current.material, 'radius', hovered ? 0.11 : 0.1, 0.2, delta)
-    easing.damp(ref.current.material, 'zoom', hovered ? 1.03: 1, 0.2, delta)
+    easing.damp3(ref.current.scale, hovered ? 1.1 : 0.9, 0.1, delta)
+    easing.damp(ref.current.material, 'radius', hovered ? 0 : 0.09, 0.2, delta)
+    easing.damp(ref.current.material, 'zoom', hovered ? 1: 1, 0.2, delta)
   })
 
   return (
@@ -156,7 +156,7 @@ function Card({ url, ...props }) {
     onPointerOut={pointerOut} 
     onClick={handleClick}
     {...props}>
-      <bentPlaneGeometry args={[0.1, 1, 1, 20, 20]} />
+      <bentPlaneGeometry args={[0.1, 0.75, 0.75, 20, 20]} />
     </Image>)}
 //========호버 애니메이션, 사용자 인터랙션 처리===========//
 
@@ -172,7 +172,7 @@ function Banner(props) {
   })
   return (
     <mesh ref={ref} {...props}>
-      <cylinderGeometry args={[1.6, 1.6, 0.14, 128, 16, true]} />
+      <cylinderGeometry args={[1.6, 1.6, 0.1, 128, 16, true]} />
       <meshSineMaterial map={texture} map-anisotropy={16} map-repeat={[30, 1]} side={THREE.DoubleSide} toneMapped={false} />
     </mesh>
   )
