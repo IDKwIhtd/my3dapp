@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Photo 1</title>
+    <title>UI Path를 이용한 업무 자동화</title>
 </head>
 <body>
-    <h1>Photo 1 Page</h1>
-    <p>이 페이지는 Photo 1에 대한 내용을 보여줍니다.</p>
+<header onclick="window.location.href='http://zeroto.dothome.co.kr';" style="cursor: pointer;">
+        <h1>Back To the ZERO</h1>
+    </header>
+    <h2>UI Path를 이용한 업무 자동화</h2>
+    <p>작업방법을 확인하고 싶다면 사진을 클릭해주세요!</p>
 
     <!-- 이미지 버튼 -->
     <a href="uipath1redirect.php">

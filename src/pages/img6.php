@@ -4,7 +4,11 @@
     <title>Photo 1</title>
 </head>
 <body>
-    <h1>Photo 1 Page</h1>
-    <p>이 페이지는 Photo 1에 대한 내용을 보여줍니다.</p>
+<header onclick="window.location.href='http://zeroto.dothome.co.kr';" style="cursor: pointer;">
+        <h1>Back To the ZERO</h1>
+    </header>
+    <h1>StarUML</h1>
+    <p>UseCaseDiagram about Vending Machine System</p>
+    <img src="../body/UseCaseDiagram.png" alt="Redirected Photo" width="100%" height="100%">
 </body>
 </html>
