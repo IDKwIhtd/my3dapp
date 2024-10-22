@@ -137,9 +137,9 @@ function Card({ url, ...props }) {
 
   const index2 = props.index;
   const handleClick = () => {
-      //index2 : 1 => notion 리다이렉트
-    if (index2===1){window.location.href = 'https://laser-dresser-d75.notion.site/125516ef2cc1800aa51ee989cc93293e?pvs=4';}
-    else if (index2 === 4) {
+      //index2 : 3 => notion 리다이렉트
+    if (index2===3){window.location.href = 'https://laser-dresser-d75.notion.site/125516ef2cc1800aa51ee989cc93293e?pvs=4';}
+    else if (index2 === 2) {
       // index2 : 4 => gitHub 리다이렉트
       window.location.href = 'https://github.com/IDKwIhtd';}
     else{
